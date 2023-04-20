@@ -1,4 +1,4 @@
-package internal
+package collector
 
 import (
 	"bufio"
@@ -17,8 +17,8 @@ const (
 )
 
 var (
-	sensorStatePath = easyxporter.Flags().String("collector.sensor.state.path", "", "StateLog path")
-	sensorStateHead = easyxporter.Flags().Bool("collector.sensor.state.head", true, "Table head of statelog")
+	sensorStatePath = easyxporter.CollectorFlags.String("collector.sensor.state.path", "", "StateLog path")
+	sensorStateHead = easyxporter.CollectorFlags.Bool("collector.sensor.state.head", true, "Table head of statelog")
 )
 
 type sensorColletor struct {

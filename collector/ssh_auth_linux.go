@@ -1,4 +1,4 @@
-package internal
+package collector
 
 import (
 	"context"
@@ -15,7 +15,7 @@ const (
 )
 
 var (
-	sshAuthLogPath = easyxporter.Flags().String("collector.sshauth.path", "/var/log/secure", "SSH Auth log path")
+	sshAuthLogPath = easyxporter.CollectorFlags.String("collector.sshauth.path", "/var/log/secure", "SSH Auth log path")
 )
 
 // 解析 ssh auth 日志，根据accept/disconnect记录模糊计算ssh在线的用户

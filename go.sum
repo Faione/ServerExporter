@@ -40,8 +40,8 @@ github.com/Azure/go-ansiterm v0.0.0-20210617225240-d185dfc1b5a1 h1:UQHMgLO+TxOEl
 github.com/Azure/go-ansiterm v0.0.0-20210617225240-d185dfc1b5a1/go.mod h1:xomTg63KZ2rFqZQzSB4Vz2SUXa1BpHTVz9L5PTmPC4E=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
-github.com/Faione/easyxporter v0.0.1 h1:pewO7utdhDKLzIjUjgsgTVxUCcvYaObaWraQpgd9/SI=
-github.com/Faione/easyxporter v0.0.1/go.mod h1:+R0FLY40QmFI8RSUwSMppi+z3H+1DDl36okvE5ZFgsU=
+github.com/Faione/easyxporter v0.0.2 h1:N5+H1L4syXgGo8p6NJPx4Qc4epWdAv0v6G/0YfkmLGA=
+github.com/Faione/easyxporter v0.0.2/go.mod h1:+R0FLY40QmFI8RSUwSMppi+z3H+1DDl36okvE5ZFgsU=
 github.com/Faione/users v0.0.0-20230321072852-aa7de21318e2 h1:BSWYr4bH3m671Jntar9Os2GqwUN9ReRXVtQFgJQcj60=
 github.com/Faione/users v0.0.0-20230321072852-aa7de21318e2/go.mod h1:Yub+KcqXwC10Qz7OxkajuZYCVQhztk7iqQ+95VUZrsM=
 github.com/Microsoft/go-winio v0.6.0 h1:slsWYD/zyx7lCXoZVlvQrj0hPTM1HI4+v1sIda2yDvg=

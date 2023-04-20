@@ -2,7 +2,7 @@
 ## explicit; go 1.16
 github.com/Azure/go-ansiterm
 github.com/Azure/go-ansiterm/winterm
-# github.com/Faione/easyxporter v0.0.1
+# github.com/Faione/easyxporter v0.0.2
 ## explicit; go 1.20
 github.com/Faione/easyxporter
 # github.com/Faione/users v0.0.0-20230321072852-aa7de21318e2

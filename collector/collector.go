@@ -1,4 +1,4 @@
-package cmd
+package collector
 
 import (
 	"net/http"
@@ -49,7 +49,7 @@ func New() *cobra.Command {
 		"Maximum number of parallel scrape requests. Use 0 to disable.",
 	)
 
-	flags.AddFlagSet(easyxporter.Flags())
+	flags.AddFlagSet(easyxporter.CollectorFlags)
 	vp.BindPFlags(flags)
 	return rootCmd
 }
@@ -97,6 +97,7 @@ func runServerExporter(vp *viper.Viper, args []string) error {
 		ListenAddress: listenAddress,
 		MetricsPath:   metricsPath,
 		MaxRequests:   maxRequests,
+		NameSpace:     "server",
 	})
 
 }
