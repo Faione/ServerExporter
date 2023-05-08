@@ -5,11 +5,11 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/Faione/ServerExporter/collector"
+	"github.com/Faione/ServerExporter/cmd"
 )
 
 func main() {
-	if err := collector.New().Execute(); err != nil && err != http.ErrServerClosed {
+	if err := cmd.New().Execute(); err != nil && err != http.ErrServerClosed {
 		fmt.Println("err: ", err)
 		os.Exit(1)
 	}

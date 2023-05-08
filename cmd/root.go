@@ -1,9 +1,10 @@
-package collector
+package cmd
 
 import (
 	"net/http"
 	"strings"
 
+	_ "github.com/Faione/ServerExporter/collector"
 	"github.com/Faione/easyxporter"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
