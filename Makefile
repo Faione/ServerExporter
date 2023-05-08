@@ -1,4 +1,3 @@
-
 APP = bin/server_exporter
 
 docker-build:
