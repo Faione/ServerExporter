@@ -42,57 +42,57 @@ func NewHardwareInfoCollector(logger *logrus.Logger) (easyxporter.Collector, err
 
 	return &hardwareInfoCollector{
 		nodeInfo: prometheus.NewDesc(
-			prometheus.BuildFQName(easyxporter.GetNameSpace(), hardwareInfoCollectorSubsystem, "node"),
+			prometheus.BuildFQName(RootNamespace, hardwareInfoCollectorSubsystem, "node"),
 			"Node information from sysinfo",
 			[]string{"hostname", "machineid"}, nil,
 		),
 		osInfo: prometheus.NewDesc(
-			prometheus.BuildFQName(easyxporter.GetNameSpace(), hardwareInfoCollectorSubsystem, "os"),
+			prometheus.BuildFQName(RootNamespace, hardwareInfoCollectorSubsystem, "os"),
 			"OS information from sysinfo",
 			[]string{"name", "vendor", "version", "release", "architecture"}, nil,
 		),
 		kernelInfo: prometheus.NewDesc(
-			prometheus.BuildFQName(easyxporter.GetNameSpace(), hardwareInfoCollectorSubsystem, "kernel"),
+			prometheus.BuildFQName(RootNamespace, hardwareInfoCollectorSubsystem, "kernel"),
 			"Kernel information from sysinfo",
 			[]string{"release", "version", "architecture"}, nil,
 		),
 		productInfo: prometheus.NewDesc(
-			prometheus.BuildFQName(easyxporter.GetNameSpace(), hardwareInfoCollectorSubsystem, "product"),
+			prometheus.BuildFQName(RootNamespace, hardwareInfoCollectorSubsystem, "product"),
 			"Product information from sysinfo",
 			[]string{"name", "vendor", "version", "serial"}, nil,
 		),
 		boardInfo: prometheus.NewDesc(
-			prometheus.BuildFQName(easyxporter.GetNameSpace(), hardwareInfoCollectorSubsystem, "board"),
+			prometheus.BuildFQName(RootNamespace, hardwareInfoCollectorSubsystem, "board"),
 			"Board information from sysinfo",
 			[]string{"name", "vendor", "version", "serial", "assettag"}, nil,
 		),
 		chassisInfo: prometheus.NewDesc(
-			prometheus.BuildFQName(easyxporter.GetNameSpace(), hardwareInfoCollectorSubsystem, "chassis"),
+			prometheus.BuildFQName(RootNamespace, hardwareInfoCollectorSubsystem, "chassis"),
 			"Chassis information from sysinfo",
 			[]string{"type", "vendor", "version", "serial", "assettag"}, nil,
 		),
 		biosInfo: prometheus.NewDesc(
-			prometheus.BuildFQName(easyxporter.GetNameSpace(), hardwareInfoCollectorSubsystem, "bios"),
+			prometheus.BuildFQName(RootNamespace, hardwareInfoCollectorSubsystem, "bios"),
 			"Bios information from sysinfo",
 			[]string{"vendor", "version", "date"}, nil,
 		),
 		cpuInfo: prometheus.NewDesc(
-			prometheus.BuildFQName(easyxporter.GetNameSpace(), hardwareInfoCollectorSubsystem, "cpu"),
+			prometheus.BuildFQName(RootNamespace, hardwareInfoCollectorSubsystem, "cpu"),
 			"Cpu information from sysinfo",
 			[]string{"vendor", "model", "speed", "cache", "cpus", "cores", "threads"}, nil,
 		),
 		memoryInfo: prometheus.NewDesc(
-			prometheus.BuildFQName(easyxporter.GetNameSpace(), hardwareInfoCollectorSubsystem, "memory"),
+			prometheus.BuildFQName(RootNamespace, hardwareInfoCollectorSubsystem, "memory"),
 			"Memory information from sysinfo",
 			[]string{"type", "speed", "size"}, nil,
 		),
 		storageInfo: prometheus.NewDesc(
-			prometheus.BuildFQName(easyxporter.GetNameSpace(), hardwareInfoCollectorSubsystem, "storage"),
+			prometheus.BuildFQName(RootNamespace, hardwareInfoCollectorSubsystem, "storage"),
 			"Storage information from sysinfo",
 			[]string{"name", "driver", "vendor", "model", "serial", "size"}, nil,
 		),
 		networkInfo: prometheus.NewDesc(
-			prometheus.BuildFQName(easyxporter.GetNameSpace(), hardwareInfoCollectorSubsystem, "network"),
+			prometheus.BuildFQName(RootNamespace, hardwareInfoCollectorSubsystem, "network"),
 			"Network information from sysinfo",
 			[]string{"name", "driver", "macaddress", "port", "speed"}, nil,
 		),

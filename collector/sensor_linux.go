@@ -17,8 +17,8 @@ const (
 )
 
 var (
-	sensorStatePath = easyxporter.CollectorFlags.String("collector.sensor.state.path", "", "StateLog path")
-	sensorStateHead = easyxporter.CollectorFlags.Bool("collector.sensor.state.head", true, "Table head of statelog")
+	sensorStatePath = easyxporter.Flags().String("collector.sensor.state.path", "", "StateLog path")
+	sensorStateHead = easyxporter.Flags().Bool("collector.sensor.state.head", true, "Table head of statelog")
 )
 
 type sensorColletor struct {
@@ -90,7 +90,7 @@ func (s *sensorColletor) Update(ch chan<- prometheus.Metric) (err error) {
 		}
 
 		s.stateDesc = prometheus.NewDesc(
-			prometheus.BuildFQName(easyxporter.GetNameSpace(), sensorCollectorSubsystem, "reading"),
+			prometheus.BuildFQName(RootNamespace, sensorCollectorSubsystem, "reading"),
 			"Sensor Reading from sensor state log",
 			lnames, nil,
 		)

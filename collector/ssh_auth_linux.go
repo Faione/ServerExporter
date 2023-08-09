@@ -15,7 +15,7 @@ const (
 )
 
 var (
-	sshAuthLogPath = easyxporter.CollectorFlags.String("collector.sshauth.path", "/var/log/secure", "SSH Auth log path")
+	sshAuthLogPath = easyxporter.Flags().String("collector.sshauth.path", "/var/log/secure", "SSH Auth log path")
 )
 
 // 解析 ssh auth 日志，根据accept/disconnect记录模糊计算ssh在线的用户
@@ -31,7 +31,7 @@ func NewSSHAuthCollector(logger *logrus.Logger) (easyxporter.AsyncCollector, err
 	return &sshAuthCollector{
 		counterVec: prometheus.NewCounterVec(
 			prometheus.CounterOpts{
-				Namespace: easyxporter.GetNameSpace(),
+				Namespace: RootNamespace,
 				Subsystem: sshAuthInfoCollectorSubsystem,
 				Name:      "count",
 				Help:      "SSH auth count from /var/log/secure",
@@ -40,7 +40,7 @@ func NewSSHAuthCollector(logger *logrus.Logger) (easyxporter.AsyncCollector, err
 		),
 		livingVec: prometheus.NewGaugeVec(
 			prometheus.GaugeOpts{
-				Namespace: easyxporter.GetNameSpace(),
+				Namespace: RootNamespace,
 				Subsystem: sshAuthInfoCollectorSubsystem,
 				Name:      "living",
 				Help:      "SSH auth accept from /var/log/secure",

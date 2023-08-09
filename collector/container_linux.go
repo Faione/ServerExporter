@@ -11,9 +11,9 @@ import (
 )
 
 const (
+	RootNamespace                   = "server"
 	containerInfoCollectorSubsystem = "container"
-
-	timeout = 10
+	timeout                         = 10
 )
 
 type containerInfoCollector struct {
@@ -29,12 +29,12 @@ func NewContainerInfoCollector(logger *logrus.Logger) (easyxporter.Collector, er
 	}
 	return &containerInfoCollector{
 		containerTotal: prometheus.NewDesc(
-			prometheus.BuildFQName(easyxporter.GetNameSpace(), containerInfoCollectorSubsystem, "total"),
+			prometheus.BuildFQName(RootNamespace, containerInfoCollectorSubsystem, "total"),
 			"Container total count from docker",
 			nil, nil,
 		),
 		containerCount: prometheus.NewDesc(
-			prometheus.BuildFQName(easyxporter.GetNameSpace(), containerInfoCollectorSubsystem, "count"),
+			prometheus.BuildFQName(RootNamespace, containerInfoCollectorSubsystem, "count"),
 			"Container count from docker",
 			[]string{"state"}, nil,
 		),

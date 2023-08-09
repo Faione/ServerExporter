@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"strings"
 
-	_ "github.com/Faione/ServerExporter/collector"
+	"github.com/Faione/ServerExporter/collector"
 	"github.com/Faione/easyxporter"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
@@ -50,7 +50,7 @@ func New() *cobra.Command {
 		"Maximum number of parallel scrape requests. Use 0 to disable.",
 	)
 
-	flags.AddFlagSet(easyxporter.CollectorFlags)
+	flags.AddFlagSet(easyxporter.Flags())
 	vp.BindPFlags(flags)
 	return rootCmd
 }
@@ -93,12 +93,11 @@ func runServerExporter(vp *viper.Viper, args []string) error {
 	logger := newLogger(logLevel)
 	logger.Debug("msg", "init server", "metricsPath: ", metricsPath, " listenAddress: ", listenAddress)
 
-	return easyxporter.Run(easyxporter.ExporterOpts{
-		Logger:        logger,
-		ListenAddress: listenAddress,
-		MetricsPath:   metricsPath,
-		MaxRequests:   maxRequests,
-		NameSpace:     "server",
-	})
+	return easyxporter.Build(
+		listenAddress, collector.RootNamespace,
+		easyxporter.WithLogger(logger),
+		easyxporter.WithMaxRequests(maxRequests),
+		easyxporter.WithMetricPath(metricsPath),
+	).Run()
 
 }

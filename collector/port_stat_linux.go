@@ -27,7 +27,7 @@ type portStatCollector struct {
 func NewPortStatCollector(logger *logrus.Logger) (easyxporter.Collector, error) {
 	return &portStatCollector{
 		portInfo: prometheus.NewDesc(
-			prometheus.BuildFQName(easyxporter.GetNameSpace(), netStatCollectorSubsystem, "port_conntection"),
+			prometheus.BuildFQName(RootNamespace, netStatCollectorSubsystem, "port_conntection"),
 			"Port conntection from netstat",
 			[]string{"uid", "pid", "cmd", "protocol", "ip", "port", "remote_ip", "remote_port", "state"}, nil,
 		),

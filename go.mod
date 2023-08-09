@@ -55,7 +55,7 @@ require (
 )
 
 require (
-	github.com/Faione/easyxporter v0.0.2
+	github.com/Faione/easyxporter v1.1.0
 	github.com/Faione/users v0.0.0-20230321072852-aa7de21318e2
 	github.com/bastjan/netstat v1.0.0
 	github.com/nxadm/tail v1.4.8

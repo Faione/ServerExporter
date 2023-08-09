@@ -18,7 +18,7 @@ var (
 	collectorState      = make(map[string]*bool)
 	initiatedCollectors = make(map[string]Collector)
 
-	CollectorFlags *pflag.FlagSet = &pflag.FlagSet{}
+	collectorFlags *pflag.FlagSet = &pflag.FlagSet{}
 )
 
 // 注册collector
@@ -32,7 +32,7 @@ func RegisterCollector(collector string, isDefaultEnabled bool, factory func(log
 
 	flagName := fmt.Sprintf("collector.%s", collector)
 	flagHelp := fmt.Sprintf("Enable the %s collector (default: %s).", collector, helpDefaultState)
-	flag := CollectorFlags.Bool(
+	flag := collectorFlags.Bool(
 		flagName,
 		isDefaultEnabled,
 		flagHelp,
@@ -70,7 +70,7 @@ type AsyncCollector interface {
 	AsyncCollect(ctx context.Context) error
 }
 
-// 开启所有的后台采集器并阻塞知道所有采集器结束
+// 开启所有的后台采集器并阻塞直到所有采集器结束
 func StartAsyncCollector(ctx context.Context, logger *logrus.Logger) error {
 
 	var eg errgroup.Group

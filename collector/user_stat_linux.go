@@ -20,12 +20,12 @@ type userInfoCollector struct {
 func NewUserInfoCollector(logger *logrus.Logger) (easyxporter.Collector, error) {
 	return &userInfoCollector{
 		existInfo: prometheus.NewDesc(
-			prometheus.BuildFQName(easyxporter.GetNameSpace(), userStatCollectorSubsystem, "exist"),
+			prometheus.BuildFQName(RootNamespace, userStatCollectorSubsystem, "exist"),
 			"Exsit User info from /etc/passwd",
 			[]string{"uid", "gid", "username", "name", "homedir"}, nil,
 		),
 		loggedInfo: prometheus.NewDesc(
-			prometheus.BuildFQName(easyxporter.GetNameSpace(), userStatCollectorSubsystem, "logged"),
+			prometheus.BuildFQName(RootNamespace, userStatCollectorSubsystem, "logged"),
 			"Exsit User info from /var/run/utmp",
 			[]string{"username", "tty", "logintime"}, nil,
 		),

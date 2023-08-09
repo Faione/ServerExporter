@@ -9,37 +9,14 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-var namespace = "server"
-
-func setNameSpace(ns string) {
-	namespace = ns
-}
-
-func GetNameSpace() string {
-	return namespace
-}
-
-var (
-	scrapeDurationDesc = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "scrape", "collector_duration_seconds"),
-		"node_exporter: Duration of a collector scrape.",
-		[]string{"collector"},
-		nil,
-	)
-	scrapeSuccessDesc = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "scrape", "collector_success"),
-		"node_exporter: Whether a collector succeeded.",
-		[]string{"collector"},
-		nil,
-	)
-)
-
 type EasyCollector struct {
-	Collectors map[string]Collector
-	logger     *logrus.Logger
+	logger             *logrus.Logger
+	Collectors         map[string]Collector
+	scrapeDurationDesc *prometheus.Desc
+	scrapeSuccessDesc  *prometheus.Desc
 }
 
-func NewEasyCollector(logger *logrus.Logger, filters ...string) (*EasyCollector, error) {
+func newEasyCollector(logger *logrus.Logger, namespace string, filters ...string) (*EasyCollector, error) {
 	f := make(map[string]bool)
 	for _, filter := range filters {
 		enabled, exist := collectorState[filter]
@@ -61,6 +38,7 @@ func NewEasyCollector(logger *logrus.Logger, filters ...string) (*EasyCollector,
 		if collector, ok := initiatedCollectors[key]; ok {
 			collectors[key] = collector
 		} else {
+			logger.Debug("init collector: ", key)
 
 			collector, err := factories[key](logger)
 			if err != nil {
@@ -69,17 +47,31 @@ func NewEasyCollector(logger *logrus.Logger, filters ...string) (*EasyCollector,
 			collectors[key] = collector
 			initiatedCollectors[key] = collector
 
-			logger.Debug("init collector: ", key)
 		}
 
 	}
 
-	return &EasyCollector{Collectors: collectors, logger: logger}, nil
+	return &EasyCollector{
+		logger:     logger,
+		Collectors: collectors,
+		scrapeDurationDesc: prometheus.NewDesc(
+			prometheus.BuildFQName(namespace, "scrape", "collector_duration_seconds"),
+			"node_exporter: Duration of a collector scrape.",
+			[]string{"collector"},
+			nil,
+		),
+		scrapeSuccessDesc: prometheus.NewDesc(
+			prometheus.BuildFQName(namespace, "scrape", "collector_success"),
+			"node_exporter: Whether a collector succeeded.",
+			[]string{"collector"},
+			nil,
+		),
+	}, nil
 }
 
 func (s EasyCollector) Describe(ch chan<- *prometheus.Desc) {
-	ch <- scrapeDurationDesc
-	ch <- scrapeSuccessDesc
+	ch <- s.scrapeDurationDesc
+	ch <- s.scrapeSuccessDesc
 }
 
 func (s EasyCollector) Collect(ch chan<- prometheus.Metric) {
@@ -89,14 +81,14 @@ func (s EasyCollector) Collect(ch chan<- prometheus.Metric) {
 	// collect from sync collectors
 	for name, c := range s.Collectors {
 		go func(name string, c Collector) {
-			execute(name, c, ch, s.logger)
+			s.execute(name, c, ch, s.logger)
 			wg.Done()
 		}(name, c)
 	}
 	wg.Wait()
 }
 
-func execute(name string, c Collector, ch chan<- prometheus.Metric, logger *logrus.Logger) {
+func (s EasyCollector) execute(name string, c Collector, ch chan<- prometheus.Metric, logger *logrus.Logger) {
 	begin := time.Now()
 	err := c.Update(ch)
 	duration := time.Since(begin)
@@ -128,6 +120,6 @@ func execute(name string, c Collector, ch chan<- prometheus.Metric, logger *logr
 		success = 1
 	}
 
-	ch <- prometheus.MustNewConstMetric(scrapeDurationDesc, prometheus.GaugeValue, duration.Seconds(), name)
-	ch <- prometheus.MustNewConstMetric(scrapeSuccessDesc, prometheus.GaugeValue, success, name)
+	ch <- prometheus.MustNewConstMetric(s.scrapeDurationDesc, prometheus.GaugeValue, duration.Seconds(), name)
+	ch <- prometheus.MustNewConstMetric(s.scrapeSuccessDesc, prometheus.GaugeValue, success, name)
 }
